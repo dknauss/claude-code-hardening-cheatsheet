@@ -10,15 +10,15 @@ Claude Code is powerful — it can run shell commands, read files, and interact 
 
 Read the full cheatsheet for detailed explanations of each rule:
 
-- [Claude Code Hardening Cheatsheet (English)](ClaudeCodeHardeningCheatSheet.md)
-- [Claude Code Hardening Cheatsheet (日本語)](ClaudeCodeHardeningCheatSheet.ja.md)
+- [Claude Code Hardening Cheatsheet (English)](Claude_Code_Hardening_Cheat_Sheet.md)
+- [Claude Code Hardening Cheatsheet (日本語)](Claude_Code_Hardening_Cheat_Sheet.ja.md)
 
 ## Files
 
 | File | Description |
 |------|-------------|
-| [`ClaudeCodeHardeningCheatSheet.md`](ClaudeCodeHardeningCheatSheet.md) | Full cheatsheet — deny/allow/ask rules explained with rationale |
-| [`settings-example.jsonc`](settings-example.jsonc) | Example `settings.json` with all rules and commented-out allow/ask examples |
+| [`Claude_Code_Hardening_Cheat_Sheet.md`](Claude_Code_Hardening_Cheat_Sheet.md) | Full cheatsheet — deny/allow/ask rules explained with rationale |
+| [`settings_example.jsonc`](settings_example.jsonc) | Example `settings.json` with all rules and commented-out allow/ask examples |
 
 ## Author
 
@@ -26,4 +26,4 @@ Riotaro OKADA ([okdt](https://github.com/okdt))
 
 ## License
 
-[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — Free to use, share, and adapt with attribution.
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) — Free to use, share, and adapt with attribution. Derivatives must use the same license.

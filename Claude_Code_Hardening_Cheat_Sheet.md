@@ -1,7 +1,5 @@
 # Claude Code Hardening Cheatsheet
 
-**[日本語版](ClaudeCodeHardeningCheatSheet.ja.md)** | **[Back to README](README.md)**
-
 ---
 
 ## 1. Introduction
@@ -88,7 +86,7 @@ Run `/sandbox` in Claude Code's interactive mode. This opens a menu where you ca
 
 This section lists specific rules organized by threat category. Each rule includes the rationale so you can decide whether it applies to your environment.
 
-See [`settings-example.jsonc`](settings-example.jsonc) for a single file containing all rules below, with `allow` and `ask` examples commented out.
+See [`settings_example.jsonc`](settings_example.jsonc) for a single file containing all rules below, with `allow` and `ask` examples commented out.
 
 ### 4.1 Deny — Destructive Git Operations
 
@@ -308,7 +306,7 @@ Commands like `psql`, `mysql`, `mongosh`, and `sqlite3` can be destructive (`DRO
 
 Allow rules skip the permission prompt for commands you trust. Useful for reducing prompt fatigue on safe, frequently-used operations.
 
-See the commented-out `allow` section in [`settings-example.jsonc`](settings-example.jsonc) for examples including test/build commands, safe git operations, and MCP read-only actions.
+See the commented-out `allow` section in [`settings_example.jsonc`](settings_example.jsonc) for examples including test/build commands, safe git operations, and MCP read-only actions.
 
 ---
 

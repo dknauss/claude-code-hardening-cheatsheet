@@ -1,6 +1,6 @@
 // Claude Code Setting Hardening Example
 // Customize and copy to ~/.claude/settings.json (remove comments)
-// See README.md for the rationale behind each rule.
+// See Claude_Code_Hardening_Cheat_Sheet.md for the rationale behind each rule.
 // Sandbox: macOS (Seatbelt), Linux/WSL2 (bubblewrap). WSL1 not supported.
 {
   "sandbox": {
