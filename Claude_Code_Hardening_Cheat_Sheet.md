@@ -38,7 +38,7 @@ Run `/sandbox` in Claude Code's interactive mode. This opens a menu where you ca
   "enabled": true,
   "autoAllowBashIfSandboxed": true,
   "filesystem": {
-    "denyRead": ["~/.ssh", "~/.gnupg", "~/.aws", "~/.config/gcloud"]
+    "denyRead": ["~/.ssh", "~/.gnupg", "~/.aws", "~/.config/gcloud", "~/.bash_history", "~/.zsh_history"]
   }
 }
 ```
