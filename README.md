@@ -153,7 +153,8 @@ For project-specific permissions that should be **more** permissive, use `settin
 | File | Description |
 |------|-------------|
 | `hardening-claude-code-env.sh` | Interactive script — detects existing settings, backs up before overwriting |
-| `settings-template.json` | Copy-paste template for `~/.claude/settings.json` |
+| `settings-template.json` | Copy-paste template for `~/.claude/settings.json` (deny rules) |
+| `settings-allow-examples.jsonc` | Allow rule examples — pick what fits your workflow (JSONC with comments) |
 
 ## References
 
