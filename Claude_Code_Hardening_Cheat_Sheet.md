@@ -319,12 +319,124 @@ Deny rules are enforced by the Claude Code harness (not the AI model), so Claude
 
 Hooks are custom shell scripts that Claude Code runs at specific lifecycle points — most importantly, **before a tool call is executed** (`PreToolUse`). Unlike deny rules that can only match command patterns, a hook script receives the full command as JSON input and can apply arbitrary logic: inspect arguments, check file contents, query external systems, or block the call with a reason that Claude sees as feedback.
 
-For example, a `PreToolUse` hook can:
-- Block `Bash` commands that contain `DROP` or `DELETE` in their arguments
-- Allow `psql` only when the command starts with `SELECT`
-- Deny any `Edit` targeting files matching a protected path pattern
+If the hook exits with code 2, the tool call is blocked (the reason you write to stderr is shown to Claude as feedback). If it exits with 0, the call proceeds. This gives you fine-grained control that glob patterns cannot express.
 
-If the hook exits with code 2, the tool call is blocked. If it exits with 0, the call proceeds. This gives you fine-grained control that glob patterns cannot express.
+### Example 1: Block destructive SQL in database commands
+
+**The problem:** You can't deny `Bash(psql *)` because it blocks `SELECT` too. But you want to catch `DROP TABLE` or `DELETE FROM` before they execute.
+
+**The hook script** — save as `~/.claude/hooks/block-destructive-sql.sh`:
+
+```bash
+#!/bin/bash
+INPUT=$(cat)
+CMD=$(echo "$INPUT" | jq -r '.tool_input.command')
+
+# Check if the command contains destructive SQL keywords
+if echo "$CMD" | grep -iqE '(DROP\s|DELETE\s+FROM|TRUNCATE\s|ALTER\s+TABLE.*DROP)'; then
+  echo "Blocked: destructive SQL detected in command: $CMD" >&2
+  exit 2
+fi
+
+exit 0
+```
+
+```bash
+chmod +x ~/.claude/hooks/block-destructive-sql.sh
+```
+
+**The settings** — add to your `settings.json`:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-destructive-sql.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Now `psql -c "SELECT * FROM users"` proceeds normally, but `psql -c "DROP TABLE users"` is blocked with a reason Claude can see.
+
+### Example 2: Block Bash from reading sensitive files
+
+**The problem:** `Read(**/.env)` in your deny list blocks Claude's Read tool, but `cat .env` through Bash bypasses it entirely.
+
+**The hook script** — save as `~/.claude/hooks/block-sensitive-reads.sh`:
+
+```bash
+#!/bin/bash
+INPUT=$(cat)
+CMD=$(echo "$INPUT" | jq -r '.tool_input.command')
+
+SENSITIVE_PATTERNS='\.env|\.pem|\.key|id_rsa|id_ed25519|credentials'
+
+if echo "$CMD" | grep -iqE "(cat|less|more|head|tail|grep|awk|sed)\s.*(${SENSITIVE_PATTERNS})"; then
+  echo "Blocked: reading sensitive file via Bash: $CMD" >&2
+  exit 2
+fi
+
+exit 0
+```
+
+**The settings** — same structure, same matcher:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-sensitive-reads.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Combining multiple hooks
+
+You can register multiple hook scripts under the same event. They all run, and if any one exits with code 2, the call is blocked:
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-destructive-sql.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-sensitive-reads.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Why deny rules still have gaps
+
+Even with hooks, it helps to understand why deny rules alone aren't sufficient.
 
 ### Read deny ≠ Bash deny
 
