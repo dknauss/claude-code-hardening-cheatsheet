@@ -19,6 +19,8 @@ These are not hypothetical. They are the reason guardrails exist: to ensure that
 
 It covers what to block, what to allow, what to always ask about, and what to do when deny rules aren't enough. The deny list examples are a sample of operations that the author ([okdt](https://github.com/okdt)) wanted to block first. They are not exhaustive. Use them as a starting point and customize for your own environment.
 
+This cheatsheet is primarily written and tested on macOS, but most rules apply equally to Linux and Windows (WSL). Platform-specific rules are marked as such.
+
 ---
 
 ## 2. Sandboxing

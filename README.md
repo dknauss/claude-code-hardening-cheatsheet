@@ -6,6 +6,8 @@ A security hardening cheatsheet for [Claude Code](https://code.claude.com/) `~/.
 
 Claude Code is powerful — it can run shell commands, read files, and interact with external services. These settings restrict what it's **not allowed** to do, so you can focus on what it **should** do.
 
+This cheatsheet is primarily written and tested on macOS, but most rules apply equally to Linux and Windows (WSL). Platform-specific rules are marked as such.
+
 ## Cheatsheet
 
 Read the full cheatsheet for detailed explanations of each rule:
