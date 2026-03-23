@@ -1,5 +1,7 @@
 # claude-code-setting-hardening
 
+**[日本語版はこちら (Japanese)](README.ja.md)**
+
 A minimal, opinionated security hardening template for [Claude Code](https://code.claude.com/) `~/.claude/settings.json`.
 
 Claude Code is powerful — it can run shell commands, read files, and interact with external services. These settings restrict what it's **not allowed** to do, so you can focus on what it **should** do.
