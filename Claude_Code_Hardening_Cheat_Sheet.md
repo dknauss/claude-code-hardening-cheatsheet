@@ -60,7 +60,7 @@ Claude Code's permission system determines what happens when a command or tool i
 | `allow` | Always permitted, no prompt | `settings.json` or `settings.local.json` |
 | `ask` | Always prompted, even if previously approved with "don't ask again" | `settings.json` or `settings.local.json` |
 | _(default)_ | Prompted on first use; "don't ask again" makes it permanent | Your brain — which may say yes too quickly when busy, or can't tell safe from unsafe when tired |
-| `deny` | Always blocked, no prompt | `settings.json` |
+| `deny` | Always blocked, no prompt | `settings.json` or `settings.local.json` |
 
 `deny` takes precedence over `allow`. If the same rule appears in both, it is denied.
 
