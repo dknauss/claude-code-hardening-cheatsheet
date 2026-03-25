@@ -1,6 +1,6 @@
 # claude-code-hardening-cheatsheet
 
-**[English version](README.md)**
+**[English version](README.en.md)**
 
 [Claude Code](https://code.claude.com/) の `~/.claude/settings.json` に適用するセキュリティ強化チートシートです。
 
